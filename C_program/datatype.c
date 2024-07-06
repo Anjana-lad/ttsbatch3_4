@@ -23,6 +23,8 @@ int main(){
 //float  ==%f
 //long  ==%lf
 //double  ==%lf
+//string== %s
+//pointer==%p
 
 //escape sequence
 // \n new line

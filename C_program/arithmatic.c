@@ -5,7 +5,7 @@ int main(){
     printf("Enter a and b:");
     scanf("%d %d",&a,&b);
     printf("A=%d \n B=%d",a,b);
-    res=a+b;
+    res=a+b;   //expresion
     printf("\n Addition a+b =%d",res);
     res=a-b;
     printf("\n Subtraction a-b =%d",res);

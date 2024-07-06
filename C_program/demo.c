@@ -1,4 +1,4 @@
-//structure of c program
+//structure of c program:=
 //documentation section
 //link section 
 //global declaration section
@@ -16,10 +16,10 @@ int main(){
     return 0;
 }
 
-
 //int a=9;  4 bytes
 //float =4bytes;
 //char =1bytes;
 //double =8 bytes
 //long = 10 bytes
 
+//printf() := 

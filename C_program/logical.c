@@ -12,5 +12,4 @@ int main(){
     printf("\n Logical OR=%d",res);
     res= !(c==20);
     printf("\n Logical not of C=%d",res);
-
 }
