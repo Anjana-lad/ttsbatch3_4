@@ -101,7 +101,7 @@ int main(){
             printf(" ");
         }
         for(col=0;col<=row;col++){
-            printf("%d ",row);
+            printf("%c ",row+65);
         }
         printf("\n");
     }
