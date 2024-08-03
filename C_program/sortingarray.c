@@ -17,7 +17,7 @@ int main(){
         }
     }
     // for printing the ascending array
-    printf("Printing ascending array\n");
+    printf("\n Printing ascending array\n");
     for(int i=0;i<5;i++){
         printf("%d \t",num[i]);
     }
