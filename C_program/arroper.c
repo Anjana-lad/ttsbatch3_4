@@ -66,7 +66,7 @@ int main(){
             mul[row][col]=0;
             for(int k=0;k<c;k++){
                 mul[row][col]+=arr1[row][k]*arr2[k][col];
-            }
+            } 0
         }
     }
     printf("\n Multiplication array\n");
