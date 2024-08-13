@@ -25,3 +25,37 @@
  == strcat(str1,str2);
 
 */
+
+#include<stdio.h>
+#include<string.h>
+int main(){
+   int len;
+   char str[20],str2[20],str3[20],str4[20]="I love programming";
+   printf("Enter string1:");
+   gets(str);
+   printf("\n String1=%s",str);
+   printf("\n Enter string2:");
+   scanf("%[^\n]s",&str2);
+   printf("string2=%s",str2);
+   len=strlen(str);
+   printf("\n Length of string1=%d",len);
+   // string to lower case
+    printf("\n String to lower=%s",strlwr(str2));
+    // string to upper case
+    printf("\n String to upper =%s",strupr(str));
+    // string compare 
+    printf("\n String compare = %d",strcmp(str,str2));
+   // string copy
+   printf("\n String copy=%s",strcpy(str3,str));
+   printf("\n String 3=%s",str3);
+  // string reverse
+  printf("\n reverse string=%s",strrev(str3));
+  // string inside string
+  printf("\n String inside string=%s",strstr(str4,"ove"));
+   // string character
+   printf("\n String having character:%s",strchr(str4,'l'));
+   // string concatenate
+   printf("\n String concatenate:%s",strcat(str,str2));
+   // strset;
+   printf("\n String set=%s",strset(str,'x'));
+}
