@@ -7,6 +7,4 @@ int main(){
     printf("address of variable a=%d",ptr);
     printf("\n value at ptr is=%d",*ptr);
     a=*ptr; // dereferencing pointer.
-
-
 }

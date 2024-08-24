@@ -1,0 +1,4 @@
+
+Rollno=1
+Name=anu
+Percentage=56
