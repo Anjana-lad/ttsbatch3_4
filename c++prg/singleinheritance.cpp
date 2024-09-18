@@ -2,7 +2,7 @@
 // child class, derived class ,sub class
 //single inheritance
 // syntax to inherit: class child_classname : access specifier parent_classname
-//wAP for single inheritance class "vehicle and derived "car" the base class has datamember color,maxspeed and derived class have number of doors.
+
 #include<iostream>
 using namespace std;
 class person{   // parent class
@@ -41,4 +41,4 @@ int main(){
     stud.show();
 }
 
-//wAP for single inheritance class "vehicle and derived "car" the base class has datamember color,maxspeed and derived class have number of doors.
+//wAP for single inheritance class "vehicle and derived "car" the base class has data_member color,max_speed and derived class have number of doors.
