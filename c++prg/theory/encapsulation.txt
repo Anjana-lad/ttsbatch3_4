@@ -35,7 +35,12 @@ A single function or an operator can function in many ways on different instance
 // 3: . (dot) ,*
 // 4: sizeof() ,
 // 5: ?:
-//function overloading :funtion names are same but parameter are different,or datatype can be different
+//function overloading :function names are same but parameter are different,or datatype can be different
 //operator overloading:it gives special meaning to an existing operator without changing its original meaning. +,++,--,<,>,
-//syntax return type operator (operator symbol)(classname &objectname)
+//syntax return type operator (operator symbol)(class_name &object_name)
 
+pure virtual function:=
+A pure virtual function in c++ is a virtual function for which we do not have an implementation. We do not write any functionality in it. Instead, we only declare this function. A pure virtual function does not carry any definition related to its base class. A pure virtual function is declared by assigning a zero (0) in its declaration. Any class containing one or more pure virtual functions can not be used to define any object. For this reason, these classes are known as abstract classes. Classes derived from abstract classes need to implement the pure virtual functions of these classes.
+
+virtual data/return_type function_name ()=0;
+  
