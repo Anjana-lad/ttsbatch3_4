@@ -1,10 +1,11 @@
 Template: 
 It is similar to a blueprint that creates a generic class or a function that reduces code 
 duplication and includes independent writing of a code of any particular type.
+
 syntax:
 template<parameter list><declaration
 
-2 types of template
+2 types of template:=
 1. function template.
 2. Class template.
 
