@@ -1,0 +1,275 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 31
+Server version: 8.0.39 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| batch1_2           |
+| batch4_5           |
+| batch8_10          |
+| da_new             |
+| demo               |
+| information_schema |
+| mysql              |
+| new_s              |
+| performance_schema |
+| sys                |
++--------------------+
+10 rows in set (0.00 sec)
+
+mysql> use batch4_5;
+Database changed
+mysql> show tables;
++--------------------+
+| Tables_in_batch4_5 |
++--------------------+
+| customer           |
+| payment            |
+| student            |
++--------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from customer;
++-----+--------+------------+--------+------+
+| cid | c_name | mobile_no  | salary | age  |
++-----+--------+------------+--------+------+
+|   1 | Kevin  | 7412589632 |  51000 | NULL |
+|   2 | Riya   | 8541236975 |  51000 | NULL |
+|   3 | Ankit  | 8521479621 |  63000 | NULL |
+|   4 | Siya   | 9632147852 |  74000 | NULL |
+|   5 | smit   | 7425819966 |  85000 | NULL |
+|   6 | rashi  | 8547214476 |   9600 | NULL |
+|   7 | priya  | 9658741235 |  52100 | NULL |
+|   8 | harsh  | 6321458722 |  65800 | NULL |
+|   9 | tejas  | 9512478363 |   8500 | NULL |
+|  10 | manav  | 8547123655 |   6000 | NULL |
++-----+--------+------------+--------+------+
+10 rows in set (0.00 sec)
+
+mysql> select * from payment;
++--------+------+------------+--------+------------+
+| pay_id | cid  | mode       | amount | payment_dt |
++--------+------+------------+--------+------------+
+|      1 |    1 | Cash       |   5200 | 2024-02-24 |
+|      2 |    1 | G-Pay      |   2000 | 2024-10-30 |
+|      3 |    2 | creditcard |   3000 | 2021-01-25 |
+|      4 |    3 | debit card |   2500 | 2023-02-27 |
+|      5 |    4 | cash       |   6500 | 1993-07-12 |
+|      6 |    5 | cash       |   8500 | 1996-03-17 |
+|      7 |    4 | creditcard |   4570 | 1998-04-07 |
+|      8 |    6 | debit card |   9600 | 1997-06-30 |
+|      9 |    3 | cash       |   6850 | 1999-05-26 |
+|     10 |    5 | debit card |   9699 | 2020-09-22 |
++--------+------+------------+--------+------------+
+10 rows in set (0.00 sec)
+--- inner join----
+mysql> select customer.cid, c_name,salary,age,mode,amount,payment_dt from customer inner join  payment on customer.cid=payment.cid;
++-----+--------+--------+------+------------+--------+------------+
+| cid | c_name | salary | age  | mode       | amount | payment_dt |
++-----+--------+--------+------+------------+--------+------------+
+|   1 | Kevin  |  51000 | NULL | Cash       |   5200 | 2024-02-24 |
+|   1 | Kevin  |  51000 | NULL | G-Pay      |   2000 | 2024-10-30 |
+|   2 | Riya   |  51000 | NULL | creditcard |   3000 | 2021-01-25 |
+|   3 | Ankit  |  63000 | NULL | debit card |   2500 | 2023-02-27 |
+|   4 | Siya   |  74000 | NULL | cash       |   6500 | 1993-07-12 |
+|   5 | smit   |  85000 | NULL | cash       |   8500 | 1996-03-17 |
+|   4 | Siya   |  74000 | NULL | creditcard |   4570 | 1998-04-07 |
+|   6 | rashi  |   9600 | NULL | debit card |   9600 | 1997-06-30 |
+|   3 | Ankit  |  63000 | NULL | cash       |   6850 | 1999-05-26 |
+|   5 | smit   |  85000 | NULL | debit card |   9699 | 2020-09-22 |
++-----+--------+--------+------+------------+--------+------------+
+10 rows in set (0.00 sec)
+-- left join -----
+mysql> select c_name,salary,mode,amount from customer left join payment on customer.cid=payment.cid;
++--------+--------+------------+--------+
+| c_name | salary | mode       | amount |
++--------+--------+------------+--------+
+| Kevin  |  51000 | Cash       |   5200 |
+| Kevin  |  51000 | G-Pay      |   2000 |
+| Riya   |  51000 | creditcard |   3000 |
+| Ankit  |  63000 | debit card |   2500 |
+| Ankit  |  63000 | cash       |   6850 |
+| Siya   |  74000 | cash       |   6500 |
+| Siya   |  74000 | creditcard |   4570 |
+| smit   |  85000 | cash       |   8500 |
+| smit   |  85000 | debit card |   9699 |
+| rashi  |   9600 | debit card |   9600 |
+| priya  |  52100 | NULL       |   NULL |
+| harsh  |  65800 | NULL       |   NULL |
+| tejas  |   8500 | NULL       |   NULL |
+| manav  |   6000 | NULL       |   NULL |
++--------+--------+------------+--------+
+14 rows in set (0.00 sec)
+-- right join ---
+mysql> select c_name,salary,mode,amount from customer right join payment on customer.cid=payment.cid;
++--------+--------+------------+--------+
+| c_name | salary | mode       | amount |
++--------+--------+------------+--------+
+| Kevin  |  51000 | Cash       |   5200 |
+| Kevin  |  51000 | G-Pay      |   2000 |
+| Riya   |  51000 | creditcard |   3000 |
+| Ankit  |  63000 | debit card |   2500 |
+| Siya   |  74000 | cash       |   6500 |
+| smit   |  85000 | cash       |   8500 |
+| Siya   |  74000 | creditcard |   4570 |
+| rashi  |   9600 | debit card |   9600 |
+| Ankit  |  63000 | cash       |   6850 |
+| smit   |  85000 | debit card |   9699 |
++--------+--------+------------+--------+
+10 rows in set (0.00 sec)
+-- full outer  join ---
+mysql> select c_name,salary,mode,amount from customer left join payment on customer.cid=payment.cid union select c_name,salary,mode,amount from customer right join payment on customer.cid=payment.cid;
++--------+--------+------------+--------+
+| c_name | salary | mode       | amount |
++--------+--------+------------+--------+
+| Kevin  |  51000 | Cash       |   5200 |
+| Kevin  |  51000 | G-Pay      |   2000 |
+| Riya   |  51000 | creditcard |   3000 |
+| Ankit  |  63000 | debit card |   2500 |
+| Ankit  |  63000 | cash       |   6850 |
+| Siya   |  74000 | cash       |   6500 |
+| Siya   |  74000 | creditcard |   4570 |
+| smit   |  85000 | cash       |   8500 |
+| smit   |  85000 | debit card |   9699 |
+| rashi  |   9600 | debit card |   9600 |
+| priya  |  52100 | NULL       |   NULL |
+| harsh  |  65800 | NULL       |   NULL |
+| tejas  |   8500 | NULL       |   NULL |
+| manav  |   6000 | NULL       |   NULL |
++--------+--------+------------+--------+
+14 rows in set (0.00 sec)
+-- self join ---
+mysql> select c.c_name,c.cid,c.salary,p.mode,p.amount from   customer c, payment p where c.cid=p.cid;
++--------+-----+--------+------------+--------+
+| c_name | cid | salary | mode       | amount |
++--------+-----+--------+------------+--------+
+| Kevin  |   1 |  51000 | Cash       |   5200 |
+| Kevin  |   1 |  51000 | G-Pay      |   2000 |
+| Riya   |   2 |  51000 | creditcard |   3000 |
+| Ankit  |   3 |  63000 | debit card |   2500 |
+| Siya   |   4 |  74000 | cash       |   6500 |
+| smit   |   5 |  85000 | cash       |   8500 |
+| Siya   |   4 |  74000 | creditcard |   4570 |
+| rashi  |   6 |   9600 | debit card |   9600 |
+| Ankit  |   3 |  63000 | cash       |   6850 |
+| smit   |   5 |  85000 | debit card |   9699 |
++--------+-----+--------+------------+--------+
+10 rows in set (0.00 sec)
+
+mysql> select * from customer cross join payment;
++-----+--------+------------+--------+------+--------+------+------------+--------+------------+
+| cid | c_name | mobile_no  | salary | age  | pay_id | cid  | mode       | amount | payment_dt |
++-----+--------+------------+--------+------+--------+------+------------+--------+------------+
+|   1 | Kevin  | 7412589632 |  51000 | NULL |     10 |    5 | debit card |   9699 | 2020-09-22 |
+|   1 | Kevin  | 7412589632 |  51000 | NULL |      9 |    3 | cash       |   6850 | 1999-05-26 |
+|   1 | Kevin  | 7412589632 |  51000 | NULL |      8 |    6 | debit card |   9600 | 1997-06-30 |
+|   1 | Kevin  | 7412589632 |  51000 | NULL |      7 |    4 | creditcard |   4570 | 1998-04-07 |
+|   1 | Kevin  | 7412589632 |  51000 | NULL |      6 |    5 | cash       |   8500 | 1996-03-17 |
+|   1 | Kevin  | 7412589632 |  51000 | NULL |      5 |    4 | cash       |   6500 | 1993-07-12 |
+|   1 | Kevin  | 7412589632 |  51000 | NULL |      4 |    3 | debit card |   2500 | 2023-02-27 |
+|   1 | Kevin  | 7412589632 |  51000 | NULL |      3 |    2 | creditcard |   3000 | 2021-01-25 |
+|   1 | Kevin  | 7412589632 |  51000 | NULL |      2 |    1 | G-Pay      |   2000 | 2024-10-30 |
+|   1 | Kevin  | 7412589632 |  51000 | NULL |      1 |    1 | Cash       |   5200 | 2024-02-24 |
+|   2 | Riya   | 8541236975 |  51000 | NULL |     10 |    5 | debit card |   9699 | 2020-09-22 |
+|   2 | Riya   | 8541236975 |  51000 | NULL |      9 |    3 | cash       |   6850 | 1999-05-26 |
+|   2 | Riya   | 8541236975 |  51000 | NULL |      8 |    6 | debit card |   9600 | 1997-06-30 |
+|   2 | Riya   | 8541236975 |  51000 | NULL |      7 |    4 | creditcard |   4570 | 1998-04-07 |
+|   2 | Riya   | 8541236975 |  51000 | NULL |      6 |    5 | cash       |   8500 | 1996-03-17 |
+|   2 | Riya   | 8541236975 |  51000 | NULL |      5 |    4 | cash       |   6500 | 1993-07-12 |
+|   2 | Riya   | 8541236975 |  51000 | NULL |      4 |    3 | debit card |   2500 | 2023-02-27 |
+|   2 | Riya   | 8541236975 |  51000 | NULL |      3 |    2 | creditcard |   3000 | 2021-01-25 |
+|   2 | Riya   | 8541236975 |  51000 | NULL |      2 |    1 | G-Pay      |   2000 | 2024-10-30 |
+|   2 | Riya   | 8541236975 |  51000 | NULL |      1 |    1 | Cash       |   5200 | 2024-02-24 |
+|   3 | Ankit  | 8521479621 |  63000 | NULL |     10 |    5 | debit card |   9699 | 2020-09-22 |
+|   3 | Ankit  | 8521479621 |  63000 | NULL |      9 |    3 | cash       |   6850 | 1999-05-26 |
+|   3 | Ankit  | 8521479621 |  63000 | NULL |      8 |    6 | debit card |   9600 | 1997-06-30 |
+|   3 | Ankit  | 8521479621 |  63000 | NULL |      7 |    4 | creditcard |   4570 | 1998-04-07 |
+|   3 | Ankit  | 8521479621 |  63000 | NULL |      6 |    5 | cash       |   8500 | 1996-03-17 |
+|   3 | Ankit  | 8521479621 |  63000 | NULL |      5 |    4 | cash       |   6500 | 1993-07-12 |
+|   3 | Ankit  | 8521479621 |  63000 | NULL |      4 |    3 | debit card |   2500 | 2023-02-27 |
+|   3 | Ankit  | 8521479621 |  63000 | NULL |      3 |    2 | creditcard |   3000 | 2021-01-25 |
+|   3 | Ankit  | 8521479621 |  63000 | NULL |      2 |    1 | G-Pay      |   2000 | 2024-10-30 |
+|   3 | Ankit  | 8521479621 |  63000 | NULL |      1 |    1 | Cash       |   5200 | 2024-02-24 |
+|   4 | Siya   | 9632147852 |  74000 | NULL |     10 |    5 | debit card |   9699 | 2020-09-22 |
+|   4 | Siya   | 9632147852 |  74000 | NULL |      9 |    3 | cash       |   6850 | 1999-05-26 |
+|   4 | Siya   | 9632147852 |  74000 | NULL |      8 |    6 | debit card |   9600 | 1997-06-30 |
+|   4 | Siya   | 9632147852 |  74000 | NULL |      7 |    4 | creditcard |   4570 | 1998-04-07 |
+|   4 | Siya   | 9632147852 |  74000 | NULL |      6 |    5 | cash       |   8500 | 1996-03-17 |
+|   4 | Siya   | 9632147852 |  74000 | NULL |      5 |    4 | cash       |   6500 | 1993-07-12 |
+|   4 | Siya   | 9632147852 |  74000 | NULL |      4 |    3 | debit card |   2500 | 2023-02-27 |
+|   4 | Siya   | 9632147852 |  74000 | NULL |      3 |    2 | creditcard |   3000 | 2021-01-25 |
+|   4 | Siya   | 9632147852 |  74000 | NULL |      2 |    1 | G-Pay      |   2000 | 2024-10-30 |
+|   4 | Siya   | 9632147852 |  74000 | NULL |      1 |    1 | Cash       |   5200 | 2024-02-24 |
+|   5 | smit   | 7425819966 |  85000 | NULL |     10 |    5 | debit card |   9699 | 2020-09-22 |
+|   5 | smit   | 7425819966 |  85000 | NULL |      9 |    3 | cash       |   6850 | 1999-05-26 |
+|   5 | smit   | 7425819966 |  85000 | NULL |      8 |    6 | debit card |   9600 | 1997-06-30 |
+|   5 | smit   | 7425819966 |  85000 | NULL |      7 |    4 | creditcard |   4570 | 1998-04-07 |
+|   5 | smit   | 7425819966 |  85000 | NULL |      6 |    5 | cash       |   8500 | 1996-03-17 |
+|   5 | smit   | 7425819966 |  85000 | NULL |      5 |    4 | cash       |   6500 | 1993-07-12 |
+|   5 | smit   | 7425819966 |  85000 | NULL |      4 |    3 | debit card |   2500 | 2023-02-27 |
+|   5 | smit   | 7425819966 |  85000 | NULL |      3 |    2 | creditcard |   3000 | 2021-01-25 |
+|   5 | smit   | 7425819966 |  85000 | NULL |      2 |    1 | G-Pay      |   2000 | 2024-10-30 |
+|   5 | smit   | 7425819966 |  85000 | NULL |      1 |    1 | Cash       |   5200 | 2024-02-24 |
+|   6 | rashi  | 8547214476 |   9600 | NULL |     10 |    5 | debit card |   9699 | 2020-09-22 |
+|   6 | rashi  | 8547214476 |   9600 | NULL |      9 |    3 | cash       |   6850 | 1999-05-26 |
+|   6 | rashi  | 8547214476 |   9600 | NULL |      8 |    6 | debit card |   9600 | 1997-06-30 |
+|   6 | rashi  | 8547214476 |   9600 | NULL |      7 |    4 | creditcard |   4570 | 1998-04-07 |
+|   6 | rashi  | 8547214476 |   9600 | NULL |      6 |    5 | cash       |   8500 | 1996-03-17 |
+|   6 | rashi  | 8547214476 |   9600 | NULL |      5 |    4 | cash       |   6500 | 1993-07-12 |
+|   6 | rashi  | 8547214476 |   9600 | NULL |      4 |    3 | debit card |   2500 | 2023-02-27 |
+|   6 | rashi  | 8547214476 |   9600 | NULL |      3 |    2 | creditcard |   3000 | 2021-01-25 |
+|   6 | rashi  | 8547214476 |   9600 | NULL |      2 |    1 | G-Pay      |   2000 | 2024-10-30 |
+|   6 | rashi  | 8547214476 |   9600 | NULL |      1 |    1 | Cash       |   5200 | 2024-02-24 |
+|   7 | priya  | 9658741235 |  52100 | NULL |     10 |    5 | debit card |   9699 | 2020-09-22 |
+|   7 | priya  | 9658741235 |  52100 | NULL |      9 |    3 | cash       |   6850 | 1999-05-26 |
+|   7 | priya  | 9658741235 |  52100 | NULL |      8 |    6 | debit card |   9600 | 1997-06-30 |
+|   7 | priya  | 9658741235 |  52100 | NULL |      7 |    4 | creditcard |   4570 | 1998-04-07 |
+|   7 | priya  | 9658741235 |  52100 | NULL |      6 |    5 | cash       |   8500 | 1996-03-17 |
+|   7 | priya  | 9658741235 |  52100 | NULL |      5 |    4 | cash       |   6500 | 1993-07-12 |
+|   7 | priya  | 9658741235 |  52100 | NULL |      4 |    3 | debit card |   2500 | 2023-02-27 |
+|   7 | priya  | 9658741235 |  52100 | NULL |      3 |    2 | creditcard |   3000 | 2021-01-25 |
+|   7 | priya  | 9658741235 |  52100 | NULL |      2 |    1 | G-Pay      |   2000 | 2024-10-30 |
+|   7 | priya  | 9658741235 |  52100 | NULL |      1 |    1 | Cash       |   5200 | 2024-02-24 |
+|   8 | harsh  | 6321458722 |  65800 | NULL |     10 |    5 | debit card |   9699 | 2020-09-22 |
+|   8 | harsh  | 6321458722 |  65800 | NULL |      9 |    3 | cash       |   6850 | 1999-05-26 |
+|   8 | harsh  | 6321458722 |  65800 | NULL |      8 |    6 | debit card |   9600 | 1997-06-30 |
+|   8 | harsh  | 6321458722 |  65800 | NULL |      7 |    4 | creditcard |   4570 | 1998-04-07 |
+|   8 | harsh  | 6321458722 |  65800 | NULL |      6 |    5 | cash       |   8500 | 1996-03-17 |
+|   8 | harsh  | 6321458722 |  65800 | NULL |      5 |    4 | cash       |   6500 | 1993-07-12 |
+|   8 | harsh  | 6321458722 |  65800 | NULL |      4 |    3 | debit card |   2500 | 2023-02-27 |
+|   8 | harsh  | 6321458722 |  65800 | NULL |      3 |    2 | creditcard |   3000 | 2021-01-25 |
+|   8 | harsh  | 6321458722 |  65800 | NULL |      2 |    1 | G-Pay      |   2000 | 2024-10-30 |
+|   8 | harsh  | 6321458722 |  65800 | NULL |      1 |    1 | Cash       |   5200 | 2024-02-24 |
+|   9 | tejas  | 9512478363 |   8500 | NULL |     10 |    5 | debit card |   9699 | 2020-09-22 |
+|   9 | tejas  | 9512478363 |   8500 | NULL |      9 |    3 | cash       |   6850 | 1999-05-26 |
+|   9 | tejas  | 9512478363 |   8500 | NULL |      8 |    6 | debit card |   9600 | 1997-06-30 |
+|   9 | tejas  | 9512478363 |   8500 | NULL |      7 |    4 | creditcard |   4570 | 1998-04-07 |
+|   9 | tejas  | 9512478363 |   8500 | NULL |      6 |    5 | cash       |   8500 | 1996-03-17 |
+|   9 | tejas  | 9512478363 |   8500 | NULL |      5 |    4 | cash       |   6500 | 1993-07-12 |
+|   9 | tejas  | 9512478363 |   8500 | NULL |      4 |    3 | debit card |   2500 | 2023-02-27 |
+|   9 | tejas  | 9512478363 |   8500 | NULL |      3 |    2 | creditcard |   3000 | 2021-01-25 |
+|   9 | tejas  | 9512478363 |   8500 | NULL |      2 |    1 | G-Pay      |   2000 | 2024-10-30 |
+|   9 | tejas  | 9512478363 |   8500 | NULL |      1 |    1 | Cash       |   5200 | 2024-02-24 |
+|  10 | manav  | 8547123655 |   6000 | NULL |     10 |    5 | debit card |   9699 | 2020-09-22 |
+|  10 | manav  | 8547123655 |   6000 | NULL |      9 |    3 | cash       |   6850 | 1999-05-26 |
+|  10 | manav  | 8547123655 |   6000 | NULL |      8 |    6 | debit card |   9600 | 1997-06-30 |
+|  10 | manav  | 8547123655 |   6000 | NULL |      7 |    4 | creditcard |   4570 | 1998-04-07 |
+|  10 | manav  | 8547123655 |   6000 | NULL |      6 |    5 | cash       |   8500 | 1996-03-17 |
+|  10 | manav  | 8547123655 |   6000 | NULL |      5 |    4 | cash       |   6500 | 1993-07-12 |
+|  10 | manav  | 8547123655 |   6000 | NULL |      4 |    3 | debit card |   2500 | 2023-02-27 |
+|  10 | manav  | 8547123655 |   6000 | NULL |      3 |    2 | creditcard |   3000 | 2021-01-25 |
+|  10 | manav  | 8547123655 |   6000 | NULL |      2 |    1 | G-Pay      |   2000 | 2024-10-30 |
+|  10 | manav  | 8547123655 |   6000 | NULL |      1 |    1 | Cash       |   5200 | 2024-02-24 |
++-----+--------+------------+--------+------+--------+------+------------+--------+------------+
+100 rows in set (0.00 sec)
