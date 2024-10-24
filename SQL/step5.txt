@@ -1,0 +1,4 @@
+group by and having clause.
+create view v1_customer as select c_name,mobile_no from customer;
+select * from  v1_customer;
+select * from v1_customer where c_name like 'p%';
